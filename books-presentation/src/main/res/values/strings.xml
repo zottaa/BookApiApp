@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_query">enter query..</string>
+    <string name="request_timeout">Request Timeout</string>
+    <string name="too_many_requests">Too Many Requests</string>
+    <string name="server_error">Server Error</string>
+    <string name="payload_too_large">Payload Too Large</string>
+    <string name="no_internet">No Internet</string>
+    <string name="serialization_error">Serialization Error</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="not_found">Not Found</string>
+    <string name="disk_full">Disk Full</string>
+    <string name="content_description_thumbnail_of_book">Small image of book</string>
+</resources>
