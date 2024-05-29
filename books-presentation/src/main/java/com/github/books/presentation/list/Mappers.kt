@@ -1,14 +1,15 @@
-package com.github.books.presentation
+package com.github.books.presentation.list
 
 import com.github.books.domain.error.DataError
 import com.github.books.domain.models.State
 import com.github.books.domain.models.Volume
 
-internal fun State<List<Volume>?, DataError>.toUi() : UiState<List<Volume>?, UiError> {
+internal fun State<List<Volume>, DataError>.toUi() : UiState<List<Volume>, UiError> {
     return when (val currentState = this) {
         is State.Success -> UiState.Success(currentState.data)
         is State.Error -> UiState.Error(currentState.data, currentState.error.toUiError())
         is State.Progress -> UiState.Loading(currentState.data)
+        State.None -> UiState.Initial
     }
 }
 

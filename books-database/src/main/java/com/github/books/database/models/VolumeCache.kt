@@ -10,6 +10,6 @@ data class VolumeCache(
     @PrimaryKey
     @ColumnInfo("id")
     val id: String,
-    @Embedded("volume_info")
+    @Embedded("volume_info_")
     val volumeInfo: VolumeInfoCache
 )

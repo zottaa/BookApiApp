@@ -20,4 +20,7 @@ interface VolumesDao {
 
     @Delete
     suspend fun remove(volumes: List<VolumeCache>)
+
+    @Query("SELECT * from volumes where  volume_info_id = :volume_info_id")
+    suspend fun volumeInfo(volume_info_id: Long): VolumeCache
 }

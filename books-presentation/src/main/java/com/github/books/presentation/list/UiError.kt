@@ -1,6 +1,7 @@
-package com.github.books.presentation
+package com.github.books.presentation.list
 
 import android.content.Context
+import com.github.books.presentation.R
 
 sealed interface UiError {
     fun message(context: Context): String

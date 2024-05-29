@@ -76,7 +76,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.dagger.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.dagger.hilt.compiler)
+    implementation(libs.androidx.navigation.compose)
 
     implementation(project(":books-uikit"))
     implementation(project(":books-data"))

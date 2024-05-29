@@ -22,7 +22,7 @@ data class VolumeInfoCache(
     val description: String,
     @ColumnInfo("pageCount")
     val pageCount: Int,
-    @Embedded("image_links")
+    @Embedded("image_links_")
     val imageLinks: ImageLinksCache,
     @ColumnInfo("language")
     val language: String,

@@ -13,6 +13,7 @@ interface MergeStrategy {
                 is State.Success -> State.Success(server.data)
                 is State.Error -> handleError(cache, server)
                 is State.Progress -> handleProgress(cache)
+                State.None -> State.None
             }
 
         private fun <D, E : Error> handleProgress(cache: State<D, E>) =

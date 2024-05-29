@@ -23,7 +23,13 @@ abstract class AppModule {
     abstract fun bindMergeStrategy(mergeStrategy: MergeStrategy.Base): MergeStrategy
 
     @Binds
-    abstract fun bindBooksRepository(repositoryImpl: BooksRepositoryImpl): BooksRepository
+    abstract fun bindBooksRepositoryReadAll(repositoryImpl: BooksRepositoryImpl): BooksRepository.ReadAll
+
+    @Binds
+    abstract fun bindBooksRepositoryAll(repositoryImpl: BooksRepositoryImpl): BooksRepository.All
+
+    @Binds
+    abstract fun bindBooksRepositoryDetails(repositoryImpl: BooksRepositoryImpl): BooksRepository.Details
 
     companion object {
         @Provides

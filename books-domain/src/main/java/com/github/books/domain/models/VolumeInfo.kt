@@ -1,6 +1,7 @@
 package com.github.books.domain.models
 
 data class VolumeInfo(
+    val id: Long,
     val title: String,
     val authors: List<String>,
     val publisher: String,

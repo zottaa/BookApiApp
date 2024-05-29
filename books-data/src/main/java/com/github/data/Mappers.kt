@@ -22,6 +22,7 @@ internal fun VolumeCache.toVolume(): Volume =
 internal fun VolumeInfoCache.toVolumeInfo(): VolumeInfo =
     with(this) {
         VolumeInfo(
+            id = id,
             title = title,
             authors = authors,
             publisher = publisher,
@@ -44,18 +45,19 @@ internal fun ImageLinksCache.toImageLinks(): ImageLinks =
         )
     }
 
-internal fun VolumeCloud.toVolume(): Volume =
+internal fun VolumeCloud.toVolume(volumeInfoId: Long): Volume =
     with(this) {
         Volume(
             id = id,
-            volumeInfo = volumeInfo.toVolumeInfo()
+            volumeInfo = volumeInfo.toVolumeInfo(volumeInfoId)
         )
     }
 
 
-internal fun VolumeInfoCloud.toVolumeInfo(): VolumeInfo =
+internal fun VolumeInfoCloud.toVolumeInfo(id: Long): VolumeInfo =
     with(this) {
         VolumeInfo(
+            id = id,
             title = title ?: "",
             authors = authors ?: listOf(),
             publisher = publisher ?: "",
@@ -97,7 +99,7 @@ internal fun Volume.toVolumeCache(): VolumeCache =
 internal fun VolumeInfo.toVolumeInfoCache(): VolumeInfoCache =
     with(this) {
         VolumeInfoCache(
-            id = 0,
+            id = id,
             title = title,
             authors = authors,
             publisher = publisher,
@@ -115,7 +117,7 @@ internal fun VolumeInfo.toVolumeInfoCache(): VolumeInfoCache =
 internal fun ImageLinks.toImageLinksCache(): ImageLinksCache =
     with(this) {
         ImageLinksCache(
-            id = 0,
+            id = System.currentTimeMillis(),
             smallThumbnail = smallThumbnail,
             thumbnail = thumbnail
         )

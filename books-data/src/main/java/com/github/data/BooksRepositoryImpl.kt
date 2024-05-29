@@ -5,6 +5,7 @@ import com.github.books.domain.BooksRepository
 import com.github.books.domain.error.DataError
 import com.github.books.domain.models.State
 import com.github.books.domain.models.Volume
+import com.github.books.domain.models.VolumeInfo
 import com.github.booksapi.BooksApiService
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +21,10 @@ class BooksRepositoryImpl @Inject constructor(
     private val booksApiService: BooksApiService,
     private val db: BooksDatabase,
     private val mergeStrategy: MergeStrategy
-) : BooksRepository {
-    override suspend fun volumes(query: String): Flow<State<List<Volume>?, DataError>> =
+) : BooksRepository.All {
+    override suspend fun volumes(query: String): Flow<State<List<Volume>, DataError>> =
         withContext(Dispatchers.IO) {
-            val dbRequestFlow = flow<State<List<Volume>?, DataError>> {
+            val dbRequestFlow = flow<State<List<Volume>, DataError>> {
                 emit(State.Progress())
                 val volumes = db.volumesDao.selectAll().map { volumeCache ->
                     volumeCache.toVolume()
@@ -34,14 +35,15 @@ class BooksRepositoryImpl @Inject constructor(
             val apiRequestFlow = flow {
                 emit(State.Progress())
                 try {
-                    val volumes = booksApiService.volumes(query).items.map { volumeCloud ->
-                        volumeCloud.toVolume()
+                    val volumes = booksApiService.volumes(query).items.mapIndexed { index, volumeCloud ->
+                        volumeCloud.toVolume(System.currentTimeMillis() + index)
                     }
                     emit(State.Success(volumes))
                     db.volumesDao.clear()
                     db.volumesDao.insert(volumes.map {
                         it.toVolumeCache()
                     })
+                    println(db.volumesDao.selectAll())
                 } catch (exception: Exception) {
                     handleException(exception)
                 }
@@ -50,8 +52,13 @@ class BooksRepositoryImpl @Inject constructor(
             dbRequestFlow.combine(apiRequestFlow, mergeStrategy::combine)
         }
 
+    override suspend fun volumeInfo(id: Long): VolumeInfo =
+        withContext(Dispatchers.IO) {
+            val volumeInfo = db.volumesDao.volumeInfo(id).volumeInfo
+            volumeInfo.toVolumeInfo()
+        }
 
-    private suspend fun FlowCollector<State<List<Volume>?, DataError>>.handleException(
+    private suspend fun FlowCollector<State<List<Volume>, DataError>>.handleException(
         exception: Throwable
     ) {
         println(exception.message)
