@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -28,6 +29,7 @@ import com.github.books.presentation.R
 internal fun VolumeContent(volume: Volume, onVolumeClick: (Long) -> Unit) {
     Row(modifier = Modifier
         .padding(bottom = 6.dp)
+        .fillMaxWidth()
         .clickable {
             onVolumeClick(volume.volumeInfo.id)
         }) {

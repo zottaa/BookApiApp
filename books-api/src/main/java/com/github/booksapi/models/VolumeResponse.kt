@@ -8,7 +8,7 @@ data class VolumeResponse(
     @SerialName("kind")
     val kind: String,
     @SerialName("totalTime")
-    val totalTime: Int,
+    val totalItems: Int,
     @SerialName("items")
     val items: List<VolumeCloud>
 )

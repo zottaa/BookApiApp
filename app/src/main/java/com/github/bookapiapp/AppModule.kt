@@ -6,8 +6,7 @@ import com.github.books.database.ProvideBooksDatabase
 import com.github.books.domain.BooksRepository
 import com.github.booksapi.BooksApiService
 import com.github.booksapi.ProvideBooksApi
-import com.github.data.BooksRepositoryImpl
-import com.github.data.MergeStrategy
+import com.github.data.BooksRepositoryPagingImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -20,16 +19,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class AppModule {
     @Binds
-    abstract fun bindMergeStrategy(mergeStrategy: MergeStrategy.Base): MergeStrategy
+    abstract fun bindBooksRepositoryReadAll(repositoryImpl: BooksRepositoryPagingImpl): BooksRepository.ReadAll
 
     @Binds
-    abstract fun bindBooksRepositoryReadAll(repositoryImpl: BooksRepositoryImpl): BooksRepository.ReadAll
+    abstract fun bindBooksRepositoryAll(repositoryImpl: BooksRepositoryPagingImpl): BooksRepository.All
 
     @Binds
-    abstract fun bindBooksRepositoryAll(repositoryImpl: BooksRepositoryImpl): BooksRepository.All
-
-    @Binds
-    abstract fun bindBooksRepositoryDetails(repositoryImpl: BooksRepositoryImpl): BooksRepository.Details
+    abstract fun bindBooksRepositoryDetails(repositoryImpl: BooksRepositoryPagingImpl): BooksRepository.Details
 
     companion object {
         @Provides
@@ -41,6 +37,5 @@ abstract class AppModule {
         @Singleton
         fun provideBooksApi(): BooksApiService =
             ProvideBooksApi(BuildConfig.BOOKS_API_BASE_URL)
-
     }
 }

@@ -1,14 +1,13 @@
 package com.github.books.domain
 
-import com.github.books.domain.error.DataError
-import com.github.books.domain.models.State
+import androidx.paging.PagingData
 import com.github.books.domain.models.Volume
 import com.github.books.domain.models.VolumeInfo
 import kotlinx.coroutines.flow.Flow
 
 interface BooksRepository {
     interface ReadAll {
-        suspend fun volumes(query: String): Flow<State<List<Volume>, DataError>>
+        suspend fun volumes(query: String): Flow<PagingData<Volume>>
     }
 
     interface Details {

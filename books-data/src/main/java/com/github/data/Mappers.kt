@@ -123,3 +123,42 @@ internal fun ImageLinks.toImageLinksCache(): ImageLinksCache =
         )
     }
 
+internal fun VolumeCloud.toVolumeCache(volumeInfoId: Long): VolumeCache =
+    with(this) {
+        VolumeCache(
+            id = id,
+            volumeInfo = volumeInfo.toVolumeInfoCache(volumeInfoId)
+        )
+    }
+
+
+internal fun VolumeInfoCloud.toVolumeInfoCache(id: Long): VolumeInfoCache =
+    with(this) {
+        VolumeInfoCache(
+            id = id,
+            title = title ?: "",
+            authors = authors ?: listOf(),
+            publisher = publisher ?: "",
+            publishedDate = publishedDate ?: "",
+            description = description ?: "",
+            pageCount = pageCount ?: 0,
+            imageLinks = imageLinks?.toImageLinksCache(id) ?: ImageLinksCache(id, "", ""),
+            language = language ?: "",
+            previewLink = previewLink ?: "",
+            infoLink = infoLink ?: ""
+        )
+    }
+
+
+internal fun ImageLinksCloud.toImageLinksCache(id: Long): ImageLinksCache {
+    return with(this) {
+        ImageLinksCache(
+            id = id,
+            smallThumbnail = smallThumbnail?.let(::ensureHttps) ?: "",
+            thumbnail = thumbnail?.let(::ensureHttps) ?: ""
+        )
+    }
+}
+
+
+
