@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
                         BooksListScreen(
                             viewModel = viewModel
                         ) { id ->
-                            println("id = $id")
                             navController.navigate("${Screen.Details}/$id")
                         }
                     }

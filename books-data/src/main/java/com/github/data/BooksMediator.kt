@@ -24,6 +24,13 @@ class BooksMediator(
     ): MediatorResult {
         return withContext(Dispatchers.IO) {
             try {
+                if (query.isBlank()) {
+                    db.volumesDao.clear()
+                    return@withContext MediatorResult.Success(
+                        endOfPaginationReached = true
+                    )
+                }
+
                 val loadKey = when (loadType) {
                     LoadType.REFRESH -> START_INDEX
                     LoadType.PREPEND -> return@withContext MediatorResult.Success(

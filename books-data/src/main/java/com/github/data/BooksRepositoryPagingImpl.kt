@@ -7,7 +7,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.github.books.database.BooksDatabase
-import com.github.books.database.models.VolumeCache
 import com.github.books.domain.BooksRepository
 import com.github.books.domain.models.Volume
 import com.github.books.domain.models.VolumeInfo
@@ -46,4 +45,5 @@ class BooksRepositoryPagingImpl @Inject constructor(
 
     override suspend fun volumeInfo(id: Long): VolumeInfo =
         db.volumesDao.volumeInfo(id).volumeInfo.toVolumeInfo()
+
 }
