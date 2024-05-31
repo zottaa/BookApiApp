@@ -1,5 +1,6 @@
 package com.github.books.database.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -10,7 +11,7 @@ import com.github.books.database.models.VolumeCache
 @Dao
 interface VolumesDao {
     @Query("SELECT * from volumes")
-    suspend fun selectAll(): List<VolumeCache>
+    fun selectAll(): PagingSource<Int, VolumeCache>
 
     @Query("DELETE from volumes")
     suspend fun clear()

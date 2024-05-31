@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.jakarta.inject.api)
+    implementation(libs.androidx.paging.runtime.ktx)
     implementation(project(":books-domain"))
     implementation(project(":books-database"))
     implementation(project(":books-api"))
